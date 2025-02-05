@@ -6,7 +6,6 @@ export interface IRegisterUser {
   userId: Types.ObjectId;
   name: string;
   email: string;
-  password: string;
   role: TUserRole;
   contactNumber: string;
 }

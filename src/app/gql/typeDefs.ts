@@ -1,12 +1,6 @@
-export const typeDefs = `#graphql
- 
-  type Book {
-    title: String
-    author: String
-  }
+import { RegisterUserTypeDefs } from "../module/auth/auth.typeDefs";
 
+export const typeDefs = `#graphql
+${RegisterUserTypeDefs}
  
-  type Query {
-    books: [Book]
-  }
 `;
