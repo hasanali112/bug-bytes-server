@@ -5,12 +5,12 @@ const generateToken = (
   secret: Secret,
   expiresInTime: string | number
 ) => {
+  //@ts-ignore
   const token = jwt.sign(payload, secret, {
-    expiresIn: Number(expiresInTime),
+    expiresIn: expiresInTime,
     algorithm: "HS256",
   });
 
-  console.log(secret, expiresInTime);
   return token;
 };
 

@@ -9,7 +9,7 @@ import { RegisterUserValidation } from "./auth.validation";
 
 export const authResolver = {
   registerUser: async (
-    parent: any,
+    _parent: any,
     { input }: { input: IRegisterUser },
     context: any
   ) => {
@@ -55,6 +55,17 @@ export const authResolver = {
         config.jwt_access_expires_in as string
       );
 
+      const refreshToken = JwtHelper.generateToken(
+        jwtPayload,
+        config.jwt_refresh_secret as string,
+        config.jwt_refresh_expires_in as string
+      );
+
+      //!set cookie
+      context.res.setHeader(
+        "set-cookie",
+        `refreshToken=${refreshToken}; HttpOnly; secure; path=/; max-age=${config.jwt_refresh_expires_in}`
+      );
       return {
         token: accessToken,
       };

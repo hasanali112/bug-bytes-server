@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { IUser } from "./user.interface";
 import bcrypt from "bcryptjs";
+import { ApiError } from "../../error/ApiError";
 
 const userSchema = new Schema<IUser>(
   {
@@ -34,6 +35,10 @@ const userSchema = new Schema<IUser>(
 
 userSchema.pre("save", async function (next) {
   const user = this;
+  const isFindedUser = await User.findOne({ email: user.email });
+  if (isFindedUser) {
+    throw new ApiError("User already exist");
+  }
   user.password = await bcrypt.hash(user.password, 10);
   next();
 });
