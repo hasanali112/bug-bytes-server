@@ -7,10 +7,16 @@ type Query {
  
   type Mutation {
     registerUser(input: IRegisterUser): User
+    login(input: ILogin): User
   }
 
   type User{
     token: String!
+  }
+
+  input ILogin{
+    email: String!
+    password: String!
   }
 
   input IRegisterUser {
