@@ -8,6 +8,7 @@ type Query {
   type Mutation {
     registerUser(input: IRegisterUser): User
     login(input: ILogin): User
+    refresh:User
   }
 
   type User{

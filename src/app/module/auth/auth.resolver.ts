@@ -8,7 +8,9 @@ import { RegisterUser } from "./auth.model";
 import { RegisterUserValidation } from "./auth.validation";
 import { ApiError } from "../../error/ApiError";
 import bcrypt from "bcryptjs";
+import { JwtPayload } from "jsonwebtoken";
 
+//register user
 export const registerResolver = {
   registerUser: async (
     _parent: any,
@@ -82,6 +84,7 @@ export const registerResolver = {
   },
 };
 
+//login user
 export const loginResolver = {
   login: async (_parent: any, { input }: { input: any }, context: any) => {
     const { email, password } = input;
@@ -112,12 +115,45 @@ export const loginResolver = {
     );
 
     //!set cookie
-    context.res.setHeader(
-      "set-cookie",
-      `refreshToken=${refreshToken}; HttpOnly; secure; path=/; max-age=${config.jwt_refresh_expires_in}`
-    );
+    context.res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+    });
     return {
       token: accessToken,
     };
+  },
+};
+
+//refresh token
+export const refreshResolver = {
+  refresh: async (_parent: any, _args: any, context: any) => {
+    try {
+      const refreshToken = context.req.cookies.refreshToken;
+      if (!refreshToken) {
+        throw new ApiError("Refresh token not found in cookies");
+      }
+
+      const jwtPayload = JwtHelper.verifyToken(
+        refreshToken,
+        config.jwt_refresh_secret as string
+      ) as JwtPayload;
+
+      const userData = await User.findOne({ email: jwtPayload.email });
+
+      const accessToken = JwtHelper.generateToken(
+        { id: userData?._id, email: userData?.email, role: userData?.role },
+        config.jwt_access_secret as string,
+        config.jwt_access_expires_in as string
+      );
+
+      return {
+        token: accessToken,
+      };
+    } catch (error) {
+      console.error("Error in refresh resolver:", error);
+      throw new ApiError("Invalid refresh token");
+    }
   },
 };

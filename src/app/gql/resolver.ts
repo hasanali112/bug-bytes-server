@@ -1,9 +1,14 @@
-import { loginResolver, registerResolver } from "../module/auth/auth.resolver";
+import {
+  loginResolver,
+  refreshResolver,
+  registerResolver,
+} from "../module/auth/auth.resolver";
 
 export const resolvers = {
   Query: {},
   Mutation: {
     ...registerResolver,
     ...loginResolver,
+    ...refreshResolver,
   },
 };
