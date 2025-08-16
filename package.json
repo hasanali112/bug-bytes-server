@@ -1,34 +1,35 @@
 {
-  "name": "bug-bytes-server",
+  "name": "portfolio-server",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "hasan",
-  "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index.js",
     "build": "tsc",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "lint": "eslint src --ignore-path .eslintignore --ext .ts",
+    "fix": "npx eslint src --fix",
+    "prettierr": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "@apollo/server": "^4.11.3",
-    "@types/jsonwebtoken": "^9.0.8",
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "graphql": "^16.10.0",
-    "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
-    "mongoose": "^8.9.7",
-    "zod": "^3.24.1"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongobd": "^0.0.1-security.0",
+    "mongoose": "^8.4.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6",
-    "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
-    "@types/node": "^22.13.1",
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.4.5"
   }
 }
