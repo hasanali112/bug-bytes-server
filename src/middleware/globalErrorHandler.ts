@@ -1,12 +1,15 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express'
 import { ZodError } from 'zod'
-import { TErrorSource } from '../interface/error'
+
 import config from '../config'
 import { handleZodError } from '../Error/zodErrorHandler'
 import { handleValidationError } from '../Error/validationErrorHandler'
 import { handleCastError } from '../Error/handleCastError'
 import { handleDuplicateError } from '../Error/handleDuplicateError'
 import { AppError } from '../Error/AppError'
+import { TErrorSource } from '../interface/error'
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   //setting default

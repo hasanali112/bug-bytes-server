@@ -1,15 +1,48 @@
 import { Schema, model } from 'mongoose'
-import { TUser } from './user.interface'
+import { IUser } from './user.interface'
 
-const userSchema = new Schema<TUser>({
-  userName: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: {
-    type: String,
-    required: true,
-    min: [6, 'Password must be at least 6 characters long'],
+const userSchema = new Schema<IUser>(
+  {
+    email: {
+      type: String,
+    },
+    contactNumber: {
+      type: String,
+    },
+    password: {
+      type: String,
+    },
+    needPasswordChange: {
+      type: Boolean,
+      default: true,
+    },
+    passwordChangedAt: {
+      type: Date,
+    },
+    role: {
+      type: String,
+      enum: ['customer', 'admin', 'vendor', 'superAdmin'],
+      Required: true,
+    },
+    status: {
+      type: String,
+      enum: ['ACTIVE', 'INACTIVE'],
+      required: true,
+      default: 'ACTIVE',
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    otp: {
+      type: String,
+    },
+    otpExpiresAt: {
+      type: Date,
+    },
   },
-  isAdmin: { type: Boolean },
-})
-
-export const UserModel = model<TUser>('user', userSchema)
+  {
+    timestamps: true,
+  },
+)
+export const User = model<IUser>('user', userSchema)

@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { TErrorSource } from '../interface/error'
 
 export const handleDuplicateError = (error: any) => {

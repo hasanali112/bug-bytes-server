@@ -1,13 +1,13 @@
-import { TUser } from './user.interface'
-import { UserModel } from './user.model'
+import { IUser } from './user.interface'
+import { User } from './user.model'
 
-const userCreate = async (user: TUser) => {
-  const result = await UserModel.create(user)
+const userCreate = async (user: IUser) => {
+  const result = await User.create(user)
   return result
 }
 
 const userGet = async () => {
-  const result = await UserModel.find()
+  const result = await User.find()
   return result
 }
 
