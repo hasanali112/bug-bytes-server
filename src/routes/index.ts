@@ -1,12 +1,12 @@
 import { Router } from 'express'
-import { BannerRoutes } from '../module/banner/banner.routes'
+import { ArticleRoutes } from '../module/atricle/article.routes'
 
 const middlewareRoutes = Router()
 
 const router = [
   {
-    path: '/banner',
-    routes: BannerRoutes,
+    path: '/article',
+    routes: ArticleRoutes,
   },
 ]
 

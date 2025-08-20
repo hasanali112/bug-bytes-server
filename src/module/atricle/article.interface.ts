@@ -1,13 +1,10 @@
-export interface IBanner {
+export interface IArticle {
   title: string
   category: string
-  publishDate: Date
+  type: string
   imageUrl: string
-  excerpt?: string
   content?: string
   tags?: string[]
-  isFeatured: boolean
-  slug: string
   createdAt: Date
   updatedAt: Date
 }

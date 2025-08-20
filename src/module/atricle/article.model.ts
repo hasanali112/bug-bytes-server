@@ -1,24 +1,20 @@
 import { model, Schema } from 'mongoose'
-import { IBanner } from './banner.interface'
+import { IArticle } from './article.interface'
 
-const BannerSchema = new Schema<IBanner>(
+const ArticleSchema = new Schema<IArticle>(
   {
     title: {
       type: String,
-      required: [true, 'Banner title is required'],
+      required: [true, 'Article title is required'],
       trim: true,
     },
     category: {
       type: String,
       required: [true, 'Category is required'],
-      enum: {
-        values: ['GAMING', 'TECH', 'REVIEWS', 'NEWS', 'GUIDES'],
-        message: '{VALUE} is not a valid category',
-      },
     },
-    publishDate: {
-      type: Date,
-      required: [true, 'Publish date is required'],
+    type: {
+      type: String,
+      required: [true, 'Article type is required'],
     },
     imageUrl: {
       type: String,
@@ -30,10 +26,6 @@ const BannerSchema = new Schema<IBanner>(
         message: (props: any) => `${props.value} is not a valid URL!`,
       },
     },
-    excerpt: {
-      type: String,
-      maxlength: [200, 'Excerpt cannot be more than 200 characters'],
-    },
     content: {
       type: String,
     },
@@ -43,15 +35,6 @@ const BannerSchema = new Schema<IBanner>(
         trim: true,
       },
     ],
-    isFeatured: {
-      type: Boolean,
-      default: false,
-    },
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-    },
   },
   {
     timestamps: true,
@@ -60,4 +43,4 @@ const BannerSchema = new Schema<IBanner>(
   },
 )
 
-export const Banner = model<IBanner>('Banner', BannerSchema)
+export const Article = model<IArticle>('Article', ArticleSchema)
